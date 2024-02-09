@@ -1,11 +1,11 @@
 <hr>
 <div class="d-flex justify-content-center flex-wrap">
-  <a [routerLink]="['/products:id', product.id]" class="list-group-item clearfix" *ngFor="let product of products">
+  <a href="#" [routerLink]="['/products:id', product.id]" class="list-group-item clearfix" *ngFor="let product of products">
     <div class="pull-left">
       <h4 class="list-group-item-heading">{{product.name}}</h4>
       <img src="{{product.imagePath}}" alt="product">
-      <p>{{product.price}}</p>
-      <p>{{product.category}}</p>
+      <p>{{product.price}} €</p>
+      <p>{{product.category | uppercase}}</p>
     </div>
   </a>
 </div>

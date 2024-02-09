@@ -7,6 +7,9 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ShoppingCartEditComponent } from './shopping-cart/shopping-cart-edit/shopping-cart-edit.component';
 import { ProductComponent } from './product-list/product/product.component';
+import { ShoppingCartService } from './shopping-cart/shopping-cart.service';
+import { ProductService } from './shared/product.service';
+import { BoldTextPipe } from './bold.text.pipe';
 
 @NgModule({
   declarations: [
@@ -15,12 +18,13 @@ import { ProductComponent } from './product-list/product/product.component';
     ShoppingCartComponent,
     ProductListComponent,
     ShoppingCartEditComponent,
-    ProductComponent
+    ProductComponent,
+    BoldTextPipe
   ],
   imports: [
     BrowserModule
   ],
-  providers: [],
+  providers: [ShoppingCartService, ProductService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,6 +1,24 @@
-<div class="container">
+<div class="container rounded border p-3 m-5">
   <div class="row">
-    <p>Shopping cart</p><hr>
-    <p *ngFor="let item of items">{{item.name}}</p>
+    <div class="col-12">
+      <p>Shopping cart</p><hr>
+      <ul *ngFor="let item of items">
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <div>{{item.name}} - Price: {{item.quantity * item.price | currency:'EUR'}}</div>
+          <div>
+            <button class="btn btn-primary" (click)="increaseQuantity(item)">
+              <i class="fa-solid fa-plus fa-xs"></i>
+            </button> {{item.quantity}} 
+            <button class="btn btn-danger" (click)="decreaseQuantity(item)">
+              <i class="fa-solid fa-minus fa-xs"></i>
+            </button>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-12"><b>Total Price: {{ getTotalPrice() | currency:'EUR' }}</b></div><hr>
   </div>
 </div>

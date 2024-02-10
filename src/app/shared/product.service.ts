@@ -1,8 +1,6 @@
-import { EventEmitter } from "@angular/core";
 import { Product } from "../product-list/product.model";
 
 export class ProductService{
-  productSelected = new EventEmitter<Product>();
 
   private products: Product[] = [
     new Product(1,'Peanut Butter', 8, 1, 'Food', 'https://live.staticflickr.com/65535/49947617826_3642d7230c_b.jpg',`Dive into the delectable world of our premium peanut butter! Crafted from the finest roasted peanuts, our creamy spread is bursting with irresistible nutty goodness. Whether you're spreading it on toast for a quick breakfast, mixing it into smoothies for a protein boost, or simply enjoying it by the spoonful as a satisfying snack, our peanut butter is the perfect addition to any pantry. Not only is it delicious, but it's also packed with protein and healthy fats, making it a nutritious choice for fueling your day. Treat yourself to the wholesome indulgence of our peanut butter and experience pure satisfaction with every bite!`),
@@ -24,6 +22,7 @@ export class ProductService{
     new Product(12,'Whey Protein', 15, 1, 'Supplements', 'https://thumbs.dreamstime.com/b/whey-protein-powder-measuring-scoop-whey-protein-powder-measuring-scoop-bodybuilding-nutrition-supplements-101085245.jpg', `Whey protein is a premium protein derived from cow's milk, rich in beneficial amino acids. To make whey concentrated protein extract, cow's milk undergoes an extraction process, separating liquid whey from carbohydrates. Whey protein is a premium protein derived from cow's milk, rich in beneficial amino acids. To make whey concentrated protein extract, cow's milk undergoes an extraction process, separating liquid whey from carbohydrates and fat constituents. It is then dried into a powder and flavored for ease of consumption.
     Whey protein is available in different concentrated forms tailored to individual needs and preferences for consumption. Various types of whey proteins include whey protein isolate, whey protein concentrate, whey protein hydrolysate, and hydrolyzed protein. It has gained significant popularity due to its health advantages and higher protein content over natural foods.`),
   ];
+  
   getProducts(){
     return this.products.slice();
   }

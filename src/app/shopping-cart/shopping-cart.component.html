@@ -17,9 +17,11 @@
           </li>
         </ul>
         <div class="col-12"><b>Total Price: {{ getTotalPrice() | currency:'EUR' }}</b></div><hr>
+        <button class="btn btn-primary">Proceed to Checkout</button>
       </div>
       <div *ngIf="items.length === 0">
         <p>Your Shopping Cart is empty!</p>
+        <p>Add any item from <a routerLink="/products" id="product-list-btn">product list</a></p>
       </div>
     </div>
   </div>

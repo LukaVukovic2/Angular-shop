@@ -7,7 +7,7 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ShoppingCartEditComponent } from './shopping-cart/shopping-cart-edit/shopping-cart-edit.component';
 import { ProductComponent } from './product-list/product/product.component';
-import { ShoppingCartService } from './shopping-cart/shopping-cart.service';
+import { ShoppingCartService } from './shared/shopping-cart.service';
 import { ProductService } from './shared/product.service';
 import { BoldTextPipe } from './bold.text.pipe';
 import { RouterModule, Routes } from '@angular/router';

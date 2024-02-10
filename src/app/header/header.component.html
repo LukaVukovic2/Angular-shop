@@ -10,7 +10,12 @@
         <a class="nav-link" routerLink="/products">Products</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/shopping-cart">Cart</a>
+        <a class="nav-link" routerLink="/shopping-cart">
+          Cart 
+          <i class="fa">&#xf07a;</i>
+          <span class='badge' id='cartQuantity'>{{itemCount}}</span>
+        </a>
+        
       </li>
     </ul>
   </div>

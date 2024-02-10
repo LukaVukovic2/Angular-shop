@@ -4,4 +4,9 @@ img{
 
 a{
   text-decoration: none;
+  cursor: pointer;
+}
+
+a:hover{
+  background-color: rgb(235, 234, 234);
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Product } from '../product.model';
 import { ProductService } from '../../shared/product.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-product',
@@ -12,19 +12,19 @@ import { ActivatedRoute } from '@angular/router';
 export class ProductComponent implements OnInit {
 
   product: Product;
+  id: number;
 
   constructor(private route: ActivatedRoute, private productService: ProductService){
-    this.productService.productSelected.subscribe(
-      (id: number) => alert('Id' + id)
-    );
   }
 
-  ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
-      const productId = params.get('id');
-      const productWithId1 = this.productService.getProducts().find((product) => product.id === 1);
-      console.log(productWithId1)
-    });
+  ngOnInit() {
+    this.route.params
+      .subscribe(
+        (params: Params) =>{
+          this.id = params['id'];
+          this.product = this.productService.getProducts().find((product) => product.id == this.id);
+        }
+      )
   }
 
   onSelectedProduct(){

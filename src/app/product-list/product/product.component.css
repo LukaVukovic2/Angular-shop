@@ -1,0 +1,12 @@
+img{
+  width: 50%;
+}
+
+.product-price{
+  font-size: 200%;
+}
+
+.product-category{
+  color: darkblue;
+  font-weight: bold;
+}

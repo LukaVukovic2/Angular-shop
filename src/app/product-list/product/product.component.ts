@@ -1,8 +1,9 @@
-import { Component, OnInit, Input, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, OnDestroy } from '@angular/core';
 import { Product } from '../product.model';
 import { ProductService } from '../../shared/product.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ShoppingCartService } from '../../shared/shopping-cart.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-product',
@@ -11,9 +12,9 @@ import { ShoppingCartService } from '../../shared/shopping-cart.service';
 })
 
 export class ProductComponent implements OnInit {
-
   product: Product;
   id: number;
+  routeParamsSubscription: Subscription;
 
   constructor(
     private route: ActivatedRoute, 
@@ -31,6 +32,7 @@ export class ProductComponent implements OnInit {
         }
       )
   }
+
 
   onAddToCart(item: Product){
     this.shoppingCartService.addToCart(item);

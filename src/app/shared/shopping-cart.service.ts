@@ -48,4 +48,11 @@ export class ShoppingCartService{
       return this.shoppingItems.reduce((total, item) => total + item.quantity, 0);
     }
   }
+
+  finishOrder(){
+    this.shoppingItems = [];
+    alert('Thank you for Your order!');
+    this.shoppingItemRemoved.emit(this.shoppingItems);
+    this.quantityChanged.emit();
+  }
 }

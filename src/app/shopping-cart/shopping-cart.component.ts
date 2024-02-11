@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Product } from '../product-list/product.model';
 import { ShoppingCartService } from '../shared/shopping-cart.service';
 import { Subscription } from 'rxjs';
-import { subscriptionLogsToBeFn } from 'rxjs/internal/testing/TestScheduler';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -30,6 +29,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.shoppingItemRemovedSubscription.unsubscribe();
+    this.addedToCartSubscription.unsubscribe();
   }
 
   increaseQuantity(item: Product) {
@@ -46,5 +46,9 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
 
   getTotalPrice(): number {
     return this.items.reduce((total, item) => total + (item.quantity * item.price), 0);
+  }
+
+  onFinishOrder(){
+    this.shoppingCartService.finishOrder();
   }
 }

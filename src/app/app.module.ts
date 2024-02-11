@@ -13,6 +13,7 @@ import { BoldTextPipe } from './bold.text.pipe';
 import { RouterModule, Routes } from '@angular/router';
 
 const appRoutes: Routes =[
+  { path: '', component: ProductListComponent, pathMatch: 'full'},
   { path: 'products', component: ProductListComponent },
   { path: 'products/:id', component: ProductComponent},
   { path: 'shopping-cart', component: ShoppingCartComponent}

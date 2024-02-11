@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Renderer2 } from '@angular/core';
 import { Product } from '../product.model';
 import { ProductService } from '../../shared/product.service';
 import { ActivatedRoute, Params } from '@angular/router';
@@ -16,10 +16,16 @@ export class ProductComponent implements OnInit {
   id: number;
   routeParamsSubscription: Subscription;
 
+  @ViewChild('img', {static: false}) img: ElementRef;
+  @ViewChild('modal', {static: false}) modal: ElementRef;
+  @ViewChild('modalImg', {static: false}) modalImg: ElementRef;
+  @ViewChild('captionText', {static: false}) captionText: ElementRef;
+
   constructor(
     private route: ActivatedRoute, 
     private productService: ProductService,
-    private shoppingCartService: ShoppingCartService
+    private shoppingCartService: ShoppingCartService,
+    private renderer: Renderer2
     ){
   }
 
@@ -33,9 +39,24 @@ export class ProductComponent implements OnInit {
       )
   }
 
-
   onAddToCart(item: Product){
     this.shoppingCartService.addToCart(item);
+    console.log(this.img.nativeElement);
     alert("Added to Cart!");
+  }
+
+  onImgClick(){
+    const doesContainClass = this.modal.nativeElement.classList.contains('closeModal')
+    if(doesContainClass){
+      this.renderer.removeClass(this.modal.nativeElement, 'closeModal')
+    }
+    this.renderer.addClass(this.modal.nativeElement, 'addModal');
+    this.renderer.setProperty(this.modalImg.nativeElement, 'src', this.img.nativeElement.src);
+    this.captionText.nativeElement.innerText = this.img.nativeElement.alt;
+  }
+
+  closeModal(){
+    this.renderer.addClass(this.modal.nativeElement, 'closeModal');
+    this.renderer.removeClass(this.modal.nativeElement, 'addModal');
   }
 }

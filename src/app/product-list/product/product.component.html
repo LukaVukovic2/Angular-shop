@@ -1,7 +1,12 @@
 <div *ngIf="product" class="d-flex justify-content-center m-5">
   <div class="pull-left list-group-item w-75 text-center">
     <h2 class="list-group-item-heading">{{product.name}}</h2>
-    <img src="{{product.imagePath}}" alt="product">
+    <img id="img" src="{{product.imagePath}}" alt="product" #img (click)="onImgClick()">
+    <div id="modal" class="modal" #modal>
+      <span (click)="closeModal()" class="close">&times;</span>
+      <img class="modal-content" id="img01" #modalImg>
+      <div id="caption" #captionText></div>
+    </div>
     <p class="product-price"><b>{{product.price | currency:'EUR' }}</b></p>
     <p class="product-category">{{product.category | uppercase}}</p>
     <button (click)="onAddToCart(product)" class="btn btn-primary">Add to Cart</button><hr>

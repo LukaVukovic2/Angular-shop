@@ -1,11 +1,11 @@
-import { EventEmitter } from "@angular/core";
 import { Product } from "../product-list/product.model"
+import { Subject } from "rxjs";
 
 export class ShoppingCartService{
-  shoppingItemRemoved = new EventEmitter<Product[]>();
-  priceChanged = new EventEmitter<Product>();
-  addedToCart = new EventEmitter<Product>();
-  quantityChanged = new EventEmitter<Product>;
+  shoppingItemRemoved = new Subject<Product[]>();
+  priceChanged = new Subject<Product>();
+  addedToCart = new Subject<Product>();
+  quantityChanged = new Subject<Product>;
 
   private shoppingItems: Product[] = [
   ]
@@ -16,19 +16,19 @@ export class ShoppingCartService{
 
   increaseItemQuantity(item: Product) {
     item.quantity++;
-    this.quantityChanged.emit(item);
+    this.quantityChanged.next(item);
   }
 
   decreaseItemQuantity(item: Product) {
     item.quantity--;
-    this.quantityChanged.emit(item);
+    this.quantityChanged.next(item);
   }
   
   removeItem(id: number){
     const index = this.shoppingItems.findIndex(item => item.id === id);
     this.shoppingItems.splice(index, 1);
-    this.shoppingItemRemoved.emit(this.shoppingItems.slice());
-    this.quantityChanged.emit();
+    this.shoppingItemRemoved.next(this.shoppingItems.slice());
+    this.quantityChanged.next(this.shoppingItems[index]);
   }
 
   addToCart(item: Product){
@@ -38,9 +38,9 @@ export class ShoppingCartService{
     }
     else{
       this.shoppingItems.push(item);
-      this.addedToCart.emit(item);
+      this.addedToCart.next(item);
     }
-    this.quantityChanged.emit();
+    this.quantityChanged.next(item);
   }
 
   getTotalQuantity(): number{
@@ -52,7 +52,7 @@ export class ShoppingCartService{
   finishOrder(){
     this.shoppingItems = [];
     alert('Thank you for Your order!');
-    this.shoppingItemRemoved.emit(this.shoppingItems);
-    this.quantityChanged.emit();
+    this.shoppingItemRemoved.next(this.shoppingItems);
+    this.quantityChanged.next(this.shoppingItems[0]);
   }
 }

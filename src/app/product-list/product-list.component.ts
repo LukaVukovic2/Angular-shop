@@ -19,7 +19,13 @@ export class ProductListComponent implements OnInit {
     ){}
 
   ngOnInit(){
-    this.products = this.productService.getProducts();
+    this.productService.getProducts()
+      .then(products => {
+        this.products = products;
+      })
+      .catch(error => {
+        console.error('Error fetching products:', error);
+      });
   }
 
   loadProduct(id: number){

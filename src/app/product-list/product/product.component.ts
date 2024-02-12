@@ -30,14 +30,19 @@ export class ProductComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.params
-      .subscribe(
-        (params: Params) =>{
-          this.id = params['id'];
-          this.product = this.productService.getProducts().find((product) => product.id == this.id);
-        }
-      )
-  }
+  this.route.params.subscribe((params: Params) => {
+    this.id = +params['id'];
+    this.productService.getProducts()
+      .then((products: Product[]) => {
+        this.product = products.find(product => product.id === this.id);
+      })
+      .catch(error => {
+        console.error('Error fetching products:', error);
+        // Handle error appropriately
+      });
+  });
+}
+
 
   onAddToCart(item: Product){
     this.shoppingCartService.addToCart(item);

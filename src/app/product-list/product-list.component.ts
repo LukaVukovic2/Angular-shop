@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Product } from './product.model';
 import { ProductService } from '../shared/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription, take } from 'rxjs';
 
 @Component({
   selector: 'app-product-list',
@@ -9,8 +10,9 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrl: './product-list.component.css',
   providers: []
 })
-export class ProductListComponent implements OnInit {
+export class ProductListComponent implements OnInit, OnDestroy {
   products: Product[];
+  productsSub: Subscription;
 
   constructor(
     private productService: ProductService, 
@@ -19,13 +21,16 @@ export class ProductListComponent implements OnInit {
     ){}
 
   ngOnInit(){
-    this.productService.getProducts()
-      .then(products => {
-        this.products = products;
-      })
-      .catch(error => {
-        console.error('Error fetching products:', error);
-      });
+    this.productsSub = this.productService.getProducts().subscribe((resData: Product[]) => {
+      this.products = resData
+      console.log(this.products);
+    })
+  }
+
+  ngOnDestroy() {
+    if(this.productsSub){
+      this.productsSub.unsubscribe();
+    }
   }
 
   loadProduct(id: number){

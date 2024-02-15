@@ -10,7 +10,7 @@ import { ShoppingCartService } from '../shared/shopping-cart.service';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   private addedToCartSubscription: Subscription;
-  quantityChangedSubscription: Subscription;
+  private quantityChangedSubscription: Subscription;
   itemCount: number;
 
   constructor(private shoppingCartService: ShoppingCartService){}
@@ -24,7 +24,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(){
-    this.addedToCartSubscription.unsubscribe();
+    if(this.addedToCartSubscription){
+      this.addedToCartSubscription.unsubscribe();
+    }
+    if(this.quantityChangedSubscription){
+      this.quantityChangedSubscription.unsubscribe();
+    }
   }
 
   

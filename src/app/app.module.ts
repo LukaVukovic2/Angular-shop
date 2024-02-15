@@ -10,12 +10,12 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { ShoppingCartEditComponent } from './shopping-cart/shopping-cart-edit/shopping-cart-edit.component';
 import { ProductComponent } from './product-list/product/product.component';
 import { ShoppingCartService } from './shared/shopping-cart.service';
-import { BoldTextPipe } from './bold.text.pipe';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthComponent } from './auth/auth.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 
 const appRoutes: Routes =[
+  { path: '', redirectTo: "products", pathMatch: 'full'},
   { path: 'products', component: ProductListComponent },
   { path: 'products/:id', component: ProductComponent},
   { path: 'shopping-cart', component: ShoppingCartComponent},
@@ -30,7 +30,6 @@ const appRoutes: Routes =[
     ProductListComponent,
     ShoppingCartEditComponent,
     ProductComponent,
-    BoldTextPipe,
     AuthComponent,
     LoadingSpinnerComponent,
   ],

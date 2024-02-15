@@ -28,8 +28,12 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   
 
   ngOnDestroy() {
-    this.shoppingItemRemovedSubscription.unsubscribe();
-    this.addedToCartSubscription.unsubscribe();
+    if(this.shoppingItemRemovedSubscription){
+      this.shoppingItemRemovedSubscription.unsubscribe();
+    }
+    if(this.addedToCartSubscription){
+      this.addedToCartSubscription.unsubscribe();
+    }
   }
 
   increaseQuantity(item: Product) {

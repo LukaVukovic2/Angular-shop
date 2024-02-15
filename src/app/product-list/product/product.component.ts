@@ -1,9 +1,9 @@
-import { Component, OnInit, ElementRef, ViewChild, Renderer2 } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Renderer2, Input, OnDestroy } from '@angular/core';
 import { Product } from '../product.model';
 import { ProductService } from '../../shared/product.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ShoppingCartService } from '../../shared/shopping-cart.service';
-import { Subscription } from 'rxjs';
+import { Subscription, take } from 'rxjs';
 
 @Component({
   selector: 'app-product',
@@ -11,10 +11,12 @@ import { Subscription } from 'rxjs';
   styleUrl: './product.component.css'
 })
 
-export class ProductComponent implements OnInit {
+export class ProductComponent implements OnInit, OnDestroy {
+  items: Product[];
   product: Product;
   id: number;
-  routeParamsSubscription: Subscription;
+  routeParamsSub: Subscription;
+  itemsRetrieved = false;
 
   @ViewChild('img', {static: false}) img: ElementRef;
   @ViewChild('modal', {static: false}) modal: ElementRef;
@@ -30,20 +32,26 @@ export class ProductComponent implements OnInit {
   }
 
   ngOnInit() {
-  this.route.params.subscribe((params: Params) => {
-    this.id = +params['id'];
-    this.productService.getProducts()
-      .then((products: Product[]) => {
-        this.product = products.find(product => product.id === this.id);
-      })
-      .catch(error => {
-        console.error('Error fetching products:', error);
-        // Handle error appropriately
-      });
-  });
-}
+    if(this.itemsRetrieved){
+      return;
+    }
+    this.routeParamsSub = this.productService.getProducts().pipe(take(1)).subscribe(resData =>{
+      this.items = resData;
+      console.log(this.items)
+      this.route.params.subscribe((params: Params) => {
+      this.id = +params['id'];
+      this.product = this.items.find(product => product.id === this.id);
+      }
+    );
+    this.itemsRetrieved = true;
+  })}
 
-
+  ngOnDestroy() {
+    if(this.routeParamsSub){
+      this.routeParamsSub.unsubscribe();
+    }
+  }
+  
   onAddToCart(item: Product){
     this.shoppingCartService.addToCart(item);
     console.log(this.img.nativeElement);

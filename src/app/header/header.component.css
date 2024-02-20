@@ -7,14 +7,25 @@
 }
 
 #cartQuantity {
-    font-size: 12px;
-    background: #ff0000;
-    color: #fff;
-    padding: 0 5px;
-    vertical-align: top;
-    margin-left: -10px; 
+  font-size: 12px;
+  background: #ff0000;
+  color: #fff;
+  padding: 0 5px;
+  vertical-align: top;
+  margin-left: -10px; 
 }
 
 li{
   margin-left: 20px;
+}
+
+nav{
+  background-color: #3c1b00;
+}
+nav a{
+  color: #f39c12;
+}
+
+nav a:hover{
+  color: #fed99e;
 }

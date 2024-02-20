@@ -1,5 +1,5 @@
 img{
-  width: 170px;
+  width: 100%;
 }
 
 a{
@@ -9,4 +9,43 @@ a{
 
 a:hover{
   background-color: rgb(235, 234, 234);
+  opacity: 0.7;
+  transition: 0.25s;
+  scale: 1.03;
+  box-shadow: 0px 0px 11px black;
+}
+
+.product{
+  padding: 0;
+  width: calc(32.33% - 10px);
+  margin-bottom: 20px;
+}
+
+@media(max-width: 768px){
+  .product{
+    width: calc(48.33% - 10px);
+  }
+}
+
+.product:last-child:nth-child(3n+2) {
+  margin-right: auto;
+}
+
+.product-list-container{
+  margin: 50px;
+}
+
+.product-info{
+  padding: 10px;
+}
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+mark{
+  background-color: #f39c12;
+  font-size: 20px;
 }

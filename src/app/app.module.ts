@@ -7,13 +7,13 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { ProductListComponent } from './product-list/product-list.component';
-import { ShoppingCartEditComponent } from './shopping-cart/shopping-cart-edit/shopping-cart-edit.component';
 import { ProductComponent } from './product-list/product/product.component';
 import { ShoppingCartService } from './shared/shopping-cart.service';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthComponent } from './auth/auth.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { AuthGuard } from './auth/auth.guard';
+import { FooterComponent } from './footer/footer.component';
 
 const appRoutes: Routes =[
   { path: '', redirectTo: "products", pathMatch: 'full'},
@@ -29,10 +29,10 @@ const appRoutes: Routes =[
     HeaderComponent,
     ShoppingCartComponent,
     ProductListComponent,
-    ShoppingCartEditComponent,
     ProductComponent,
     AuthComponent,
     LoadingSpinnerComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

@@ -5,3 +5,13 @@ ul{
 #product-list-btn{
   text-decoration: underline;
 }
+
+.cart-container{
+  width: 50%;
+  background-color: white;
+}
+
+.cart-btn{
+  background-color: #3c1b00;
+  color: white;
+}

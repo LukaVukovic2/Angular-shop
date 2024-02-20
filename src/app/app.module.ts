@@ -13,12 +13,13 @@ import { ShoppingCartService } from './shared/shopping-cart.service';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthComponent } from './auth/auth.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
+import { AuthGuard } from './auth/auth.guard';
 
 const appRoutes: Routes =[
   { path: '', redirectTo: "products", pathMatch: 'full'},
   { path: 'products', component: ProductListComponent },
   { path: 'products/:id', component: ProductComponent},
-  { path: 'shopping-cart', component: ShoppingCartComponent},
+  { path: 'shopping-cart', component: ShoppingCartComponent, canActivate: [AuthGuard]},
   { path: 'auth', component: AuthComponent}
 ]
 

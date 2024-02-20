@@ -18,7 +18,9 @@
             </li>
           </ul>
           <div class="col-12"><b>Total Price: {{ getTotalPrice() | currency:'EUR' }}</b></div><hr>
-          <button (click)="onFinishOrder()" class="btn btn-primary">Finish order</button>
+          <div>
+            <button (click)="onConfirmOrder()" class="btn btn-primary">Confirm order</button> 
+          </div>
         </div>
         <div *ngIf="items.length === 0">
           <p>Your Shopping Cart is empty!</p>

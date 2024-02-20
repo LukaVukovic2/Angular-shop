@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild, Renderer2, Input, OnDestroy } from '@angular/core';
 import { Product } from '../product.model';
 import { ProductService } from '../../shared/product.service';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ShoppingCartService } from '../../shared/shopping-cart.service';
 import { Subscription, take } from 'rxjs';
 
@@ -27,7 +27,8 @@ export class ProductComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute, 
     private productService: ProductService,
     private shoppingCartService: ShoppingCartService,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private router: Router
     ){
   }
 
@@ -35,16 +36,25 @@ export class ProductComponent implements OnInit, OnDestroy {
     if(this.itemsRetrieved){
       return;
     }
-    this.routeParamsSub = this.productService.getProducts().pipe(take(1)).subscribe(resData =>{
-      this.items = resData;
-      console.log(this.items)
-      this.route.params.subscribe((params: Params) => {
-      this.id = +params['id'];
-      this.product = this.items.find(product => product.id === this.id);
-      }
-    );
-    this.itemsRetrieved = true;
-  })}
+    this.routeParamsSub = this.productService.productsSubject
+      .pipe(take(1)).
+      subscribe(resData =>{
+        this.items = resData;
+        this.route.params.subscribe((params: Params) => {
+          this.id = +params['id'];
+          this.product = this.items.find(product => product.id === this.id);
+        });
+      })
+    this.productService.fetchProducts()
+      .pipe(take(1))
+      .subscribe((resData: Product[]) => {
+        this.items = resData;
+        if (this.id) {
+          this.product = this.items.find(product => product.id === this.id);
+        }
+      this.itemsRetrieved = true;
+    });
+  }
 
   ngOnDestroy() {
     if(this.routeParamsSub){
@@ -54,7 +64,6 @@ export class ProductComponent implements OnInit, OnDestroy {
   
   onAddToCart(item: Product){
     this.shoppingCartService.addToCart(item);
-    console.log(this.img.nativeElement);
     alert("Added to Cart!");
   }
 

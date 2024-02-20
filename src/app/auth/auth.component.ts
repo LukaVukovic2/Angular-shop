@@ -1,7 +1,9 @@
 import { Component} from '@angular/core';
 import { NgForm } from '@angular/forms';
 
-import { AuthService } from './auth.service';
+import { AuthResponseData, AuthService } from './auth.service';
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -17,9 +19,11 @@ export class AuthComponent {
   isLoading = false;
   email: string;
   password: string;
+  authObs: Observable<AuthResponseData>;
  
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
     ){}
 
   onSubmit(form: NgForm) {
@@ -30,23 +34,24 @@ export class AuthComponent {
     this.email = form.value.email;
     this.password = form.value.password;
     this.submitted = true;
-
     if(this.isLoginForm){
-
+      this.authObs = this.authService.loginUser(this.email, this.password)
     }else{
-      this.authService.signUp(this.email, this.password).subscribe(
-        resData =>{
-          console.log(resData);
-          this.isLoading = false;
-          this.loginSuccess = true;
-        },
-        errorMessage => {
-          console.log(errorMessage);
-          this.error = errorMessage;
-          this.isLoading = false;
-        }
-      );
+      this.authObs = this.authService.signUp(this.email, this.password)
     }
+
+    this.authObs.subscribe(
+      resData =>{
+        this.isLoading = false;
+        this.loginSuccess = true;
+        this.router.navigate(['/products']);
+      },
+      errorMessage => {
+        this.error = errorMessage;
+        this.isLoading = false;
+        this.loginSuccess = false;
+      }
+    );
     form.reset();
   }
 

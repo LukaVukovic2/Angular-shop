@@ -1,7 +1,8 @@
-import { Component, EventEmitter, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { Product } from '../product-list/product.model';
 import { Subscription } from 'rxjs';
 import { ShoppingCartService } from '../shared/shopping-cart.service';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -9,26 +10,36 @@ import { ShoppingCartService } from '../shared/shopping-cart.service';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  private addedToCartSubscription: Subscription;
-  private quantityChangedSubscription: Subscription;
+  private addedToCartSub: Subscription;
+  private quantityChangedSub: Subscription;
+  private authSub: Subscription;
+  isAuthenticated = false;
   itemCount: number;
 
-  constructor(private shoppingCartService: ShoppingCartService){}
+  constructor(private shoppingCartService: ShoppingCartService, private authService: AuthService){}
   ngOnInit() {
-    this.addedToCartSubscription = this.shoppingCartService.addedToCart.subscribe(() =>{
+    this.addedToCartSub = this.shoppingCartService.addedToCart.subscribe(() =>{
       this.itemCount = this.shoppingCartService.getTotalQuantity();
     })
-    this.quantityChangedSubscription = this.shoppingCartService.quantityChanged.subscribe((item: Product)=>{
+    this.quantityChangedSub = this.shoppingCartService.quantityChanged.subscribe((item: Product)=>{
       this.itemCount = this.shoppingCartService.getTotalQuantity();
     })
+    this.authSub = this.authService.user.subscribe(
+      user =>{
+        this.isAuthenticated = !!user;
+      }
+    );
   }
 
   ngOnDestroy(){
-    if(this.addedToCartSubscription){
-      this.addedToCartSubscription.unsubscribe();
+    if(this.addedToCartSub){
+      this.addedToCartSub.unsubscribe();
     }
-    if(this.quantityChangedSubscription){
-      this.quantityChangedSubscription.unsubscribe();
+    if(this.quantityChangedSub){
+      this.quantityChangedSub.unsubscribe();
+    }
+    if(this.authSub){
+      this.authSub.unsubscribe();
     }
   }
 

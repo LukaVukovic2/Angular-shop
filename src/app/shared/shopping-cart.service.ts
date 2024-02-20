@@ -1,11 +1,17 @@
 import { Product } from "../product-list/product.model"
 import { Subject } from "rxjs";
+import { ProductService } from "./product.service";
+import { Injectable } from "@angular/core";
+
+@Injectable()
 
 export class ShoppingCartService{
   shoppingItemRemoved = new Subject<Product[]>();
   priceChanged = new Subject<Product>();
   addedToCart = new Subject<Product>();
-  quantityChanged = new Subject<Product>;
+  quantityChanged = new Subject<Product>();
+
+  constructor(private productService: ProductService){}
 
   private shoppingItems: Product[] = [
   ]
@@ -49,8 +55,9 @@ export class ShoppingCartService{
     }
   }
 
-  finishOrder(){
+  confirmOrder(){
     this.shoppingItems = [];
+    this.productService.productsSubject.value.length = 0;
     alert('Thank you for Your order!');
     this.shoppingItemRemoved.next(this.shoppingItems);
     this.quantityChanged.next(this.shoppingItems[0]);

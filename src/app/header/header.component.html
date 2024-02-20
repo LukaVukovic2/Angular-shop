@@ -10,16 +10,20 @@
         <a class="nav-link" routerLink="/products">Products</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/shopping-cart">
+        <a class="nav-link" [routerLink]="isAuthenticated ? '/shopping-cart' : '/auth'" [title]="isAuthenticated ? '' : 'You need to be logged in to see cart!'">
           Cart 
           <i class="fa">&#xf07a;</i>
           <span class='badge' id='cartQuantity'>{{itemCount}}</span>
         </a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="!isAuthenticated">
         <a class="nav-link" routerLink="/auth">
           Authenticate
         </a>
+      </li>
+      <li class="nav-item" *ngIf="isAuthenticated">
+        <a class="nav-link" style="cursor: pointer;">
+          Logout</a>
       </li>
     </ul>
   </div>

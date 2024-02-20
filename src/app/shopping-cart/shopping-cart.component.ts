@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Product } from '../product-list/product.model';
-import { ShoppingCartService } from '../shared/shopping-cart.service';
 import { Subscription } from 'rxjs';
+import { ShoppingCartService } from '../shared/shopping-cart.service';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -11,28 +12,28 @@ import { Subscription } from 'rxjs';
 
 export class ShoppingCartComponent implements OnInit, OnDestroy {
   items: Product[];
-  private shoppingItemRemovedSubscription: Subscription;
-  private addedToCartSubscription: Subscription;
+  private shoppingItemRemovedSub: Subscription;
+  private addedToCartSub: Subscription;
 
-  constructor(private shoppingCartService: ShoppingCartService){}
+  constructor(private shoppingCartService: ShoppingCartService, private authService: AuthService){}
 
   ngOnInit(){
     this.items = this.shoppingCartService.getShoppingItems();
-    this.shoppingItemRemovedSubscription = this.shoppingCartService.shoppingItemRemoved.subscribe((updatedItems: Product[]) => {
+    this.shoppingItemRemovedSub = this.shoppingCartService.shoppingItemRemoved.subscribe(updatedItems => {
       this.items = updatedItems;
     });
-    this.addedToCartSubscription = this.shoppingCartService.addedToCart.subscribe((addedItem: Product) =>{
+    this.addedToCartSub = this.shoppingCartService.addedToCart.subscribe(addedItem =>{
       this.items.push(addedItem);
     })
   }
   
 
   ngOnDestroy() {
-    if(this.shoppingItemRemovedSubscription){
-      this.shoppingItemRemovedSubscription.unsubscribe();
+    if(this.shoppingItemRemovedSub){
+      this.shoppingItemRemovedSub.unsubscribe();
     }
-    if(this.addedToCartSubscription){
-      this.addedToCartSubscription.unsubscribe();
+    if(this.addedToCartSub){
+      this.addedToCartSub.unsubscribe();
     }
   }
 
@@ -52,7 +53,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
     return this.items.reduce((total, item) => total + (item.quantity * item.price), 0);
   }
 
-  onFinishOrder(){
-    this.shoppingCartService.finishOrder();
+  onConfirmOrder(){
+    this.shoppingCartService.confirmOrder();
   }
 }

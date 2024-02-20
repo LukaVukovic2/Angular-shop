@@ -12,10 +12,8 @@ app-root{
 
 body{
   margin: 0;
-  padding: 0;
-    
-    font-family: "Merriweather", sans-serif;
-    font-weight: 300;
-    font-style: normal;
-  
+  padding: 0;  
+  font-family: "Merriweather", sans-serif;
+  font-weight: 300;
+  font-style: normal;
 }

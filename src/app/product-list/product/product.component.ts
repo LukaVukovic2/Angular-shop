@@ -41,7 +41,7 @@ export class ProductComponent implements OnInit, OnDestroy {
       subscribe(resData =>{
         this.items = resData;
         this.route.params.subscribe((params: Params) => {
-          this.id = +params['id'];
+          this.id = params['id'];
           this.product = this.items.find(product => product.id === this.id);
         });
       })

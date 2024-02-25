@@ -19,6 +19,10 @@ export interface AuthResponseData {
 export class AuthService{
   
   user = new BehaviorSubject<User>(null);
+  admin = new BehaviorSubject<boolean>(null);
+  dbAdmins: any;
+
+  admins: any;
   private expDurationTimer: any;
   
   constructor(
@@ -57,10 +61,17 @@ export class AuthService{
 
   private handleAuth(email: string, id: string, token: string, expiresIn: number){
     const expirationDate = new Date(new Date().getTime() + +expiresIn * 1000);
-    const user = new User(email, id, token, expirationDate);
-    this.autoLogout(expiresIn * 1000);
-    this.user.next(user);
-    localStorage.setItem('userData', JSON.stringify(user));
+    this.checkPermissionLevel(email).subscribe(
+      resData => {
+        this.dbAdmins = resData;
+        const isAdmin = !!this.dbAdmins.find((admin: any) => admin.email === email.toLowerCase());
+        this.admin.next(isAdmin);
+        const user = new User(email, id, token, expirationDate, isAdmin);
+        this.autoLogout(expiresIn * 1000);
+        this.user.next(user);
+        localStorage.setItem('userData', JSON.stringify(user));
+      }
+    );
   }
 
   private handleError(errorRes: HttpErrorResponse){
@@ -85,6 +96,7 @@ export class AuthService{
       id: string;
       _token: string;
       _tokenExpirationDate: string;
+      isAdmin: boolean;
     } = JSON.parse(localStorage.getItem('userData'));
     if (!userData) {
       return;
@@ -94,11 +106,13 @@ export class AuthService{
       userData.email,
       userData.id,
       userData._token,
-      new Date(userData._tokenExpirationDate)
+      new Date(userData._tokenExpirationDate),
+      userData.isAdmin
     );
 
     if (loadedUser.token) {
       this.user.next(loadedUser);
+      this.admin.next(loadedUser.isAdmin);
       const expirationDuration =
         new Date(userData._tokenExpirationDate).getTime() -
         new Date().getTime();
@@ -114,6 +128,7 @@ export class AuthService{
       clearTimeout(this.expDurationTimer);
     }
     this.expDurationTimer = null;
+    this.admin.next(null);
   }
 
   autoLogout(expirationDuration: number){
@@ -121,5 +136,10 @@ export class AuthService{
       alert('Your session has expired. Please login again.');
       this.logoutUser();
     }, expirationDuration)
+  }
+
+  checkPermissionLevel(email: string){
+    return this.http.
+      get('https://angular-webshop-7ade4-default-rtdb.europe-west1.firebasedatabase.app/admins.json');
   }
 }

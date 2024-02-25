@@ -1,8 +1,8 @@
-import { Component} from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { AuthResponseData, AuthService } from './auth.service';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,10 +10,9 @@ import { Router } from '@angular/router';
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.css'
 })
-export class AuthComponent {
-  
+export class AuthComponent{
   submitted = false;
-  loginSuccess: boolean = false;
+  loginSuccess = false;
   isLoginForm = true;
   error: string;
   isLoading = false;
@@ -35,9 +34,9 @@ export class AuthComponent {
     this.password = form.value.password;
     this.submitted = true;
     if(this.isLoginForm){
-      this.authObs = this.authService.loginUser(this.email, this.password)
+      this.authObs = this.authService.loginUser(this.email, this.password);
     }else{
-      this.authObs = this.authService.signUp(this.email, this.password)
+      this.authObs = this.authService.signUp(this.email, this.password);
     }
 
     this.authObs.subscribe(

@@ -29,3 +29,9 @@ nav a{
 nav a:hover{
   color: #fed99e;
 }
+
+.navbar-toggler-icon,
+.navbar-toggler {
+  color: #f39c12;
+}
+

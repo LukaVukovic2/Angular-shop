@@ -2,16 +2,19 @@
     <div class="cart-container rounded mt-5 p-3">
       <h2>Shopping Cart</h2><hr>
       <div *ngIf="items.length > 0">
-        <ul *ngFor="let item of items">
-          <li class="list-group-item d-flex justify-content-between align-items-center">
-            <div>{{item.name}} - Price: {{item.quantity * item.price | currency:'EUR'}}</div>
-            <div>
-              <button class="btn cart-btn" (click)="increaseQuantity(item)">
-                <i class="fa-solid fa-plus fa-xs"></i>
-              </button> {{item.quantity}} 
-              <button class="btn btn-danger" (click)="decreaseQuantity(item)">
-                <i class="fa-solid fa-minus fa-xs"></i>
-              </button>
+        <ul>
+          <li class="list-group-item" *ngFor="let item of items">
+            <div class="item-container">
+              <div class="item-title">{{item.name | truncate}}</div>
+              <div>
+                <p>Price: {{item.quantity * item.price | currency:'EUR' }}</p>
+                <button class="btn cart-btn" (click)="increaseQuantity(item)">
+                  <i class="fa-solid fa-plus fa-xs"></i>
+                </button> {{item.quantity}} 
+                <button class="btn btn-danger" (click)="decreaseQuantity(item)">
+                  <i class="fa-solid fa-minus fa-xs"></i>
+                </button>
+              </div>
             </div>
           </li>
         </ul>

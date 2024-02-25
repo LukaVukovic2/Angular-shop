@@ -9,9 +9,31 @@ ul{
 .cart-container{
   width: 50%;
   background-color: white;
+  margin-bottom: 50px;
 }
 
 .cart-btn{
   background-color: #3c1b00;
   color: white;
+}
+
+.item-container{
+  display: flex; 
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media (max-width: 1000px){
+  .cart-container{
+    width: 80%;
+  }
+}
+
+@media (max-width: 768px){
+  .cart-container{
+    width: 95%;
+  }
+  .item-container{
+    display: block;
+  }
 }

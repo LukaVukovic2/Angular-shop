@@ -27,7 +27,7 @@
         class="btn form-btn"
         type="submit"
         [disabled]="!f.valid">{{isLoginForm ? "Login" : "Sign Up"}}</button>
-      <button class="btn form-btn float-right" (click)="toggleMode()" type="button">{{isLoginForm ? "Switch to Sign Up": "Switch to Login"}}</button>
+      <button class="btn form-btn switch-btn" (click)="toggleMode()" type="button">{{isLoginForm ? "Switch to Sign Up": "Switch to Login"}}</button>
     </form>
     <div *ngIf="loginSuccess">
       <h2>Your Profile</h2>

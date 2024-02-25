@@ -13,7 +13,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private addedToCartSub: Subscription;
   private quantityChangedSub: Subscription;
   private authSub: Subscription;
+  private adminSub: Subscription;
   isAuthenticated = false;
+  isAdmin = false;
   itemCount: number;
 
   constructor(private shoppingCartService: ShoppingCartService, private authService: AuthService){}
@@ -29,6 +31,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.isAuthenticated = !!user;
       }
     );
+    this.adminSub = this.authService.admin.subscribe(
+      admin =>{
+        this.isAdmin = !!admin;
+      }
+    )
   }
 
   ngOnDestroy(){
@@ -40,6 +47,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
     if(this.authSub){
       this.authSub.unsubscribe();
+    }
+    if(this.adminSub){
+      this.adminSub.unsubscribe();
     }
   }
 

@@ -2,12 +2,14 @@
   <div style="margin: 0 auto; max-width: 1000px;">
     <div class="d-flex flex-wrap flex-container">
       <a (click)="loadProduct(product.id)" class="list-group-item clearfix product" *ngFor="let product of products">
-        <div class="pull-left">
+        <div class="pull-left d-flex flex-wrap">
           <img src="{{product.imagePath}}" alt="product">
           <div class="product-info">
-            <h4 class="list-group-item-heading">{{product.name}}</h4>
+            <div>
+              <p class="product-category">{{product.category | uppercase}}</p>
+              <h5 class="list-group-item-heading">{{product.name}}</h5>
+            </div>
             <p><mark>{{product.price | currency:'EUR' }}</mark></p>
-            <p>{{product.category | uppercase}}</p>
           </div>  
         </div>
       </a>

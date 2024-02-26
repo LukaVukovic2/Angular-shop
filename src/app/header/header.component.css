@@ -22,8 +22,10 @@ li{
 nav{
   background-color: #3c1b00;
 }
+
 nav a{
   color: #f39c12;
+  padding: 10px;
 }
 
 nav a:hover{

@@ -11,7 +11,7 @@
         <div class="carousel-item" *ngFor="let product of products.slice(0, 4); let i = index" [class.active]="i === 0">
           <div style="position: relative;">
             <div class="featured-product">
-              Featured
+              <span class="featured-info">Featured </span>
               <i class="fa-solid fa-bookmark fa-xl"></i>
             </div>
             <a (click)="loadProduct(product.id)">
@@ -36,8 +36,12 @@
 
 <div class="product-list-container">
   <div style="margin: 0 auto; max-width: 1000px;">
-    <div class="d-flex flex-wrap flex-container">
-      <a (click)="loadProduct(product.id)" class="list-group-item clearfix product" *ngFor="let product of products">
+    <div class="search">
+      <input type="text" class="searchTerm" name="searchKey" id="searchKey" #searchKeyword (keyup)="searchByKeyword(searchKeyword.value)" placeholder="Search products...">
+    </div>
+    
+    <div class="d-flex flex-wrap flex-container" *ngIf="products.length > 0">
+      <a (click)="loadProduct(product.id)" class="list-group-item clearfix product" *ngFor="let product of filteredProducts$ | async">
         <div class="pull-left d-flex flex-wrap">
           <img src="{{product.imagePath}}" alt="product">
           <div class="product-info">
@@ -49,6 +53,12 @@
           </div>  
         </div>
       </a>
+    </div>
+    <div class="no-products-msg" *ngIf="products.length === 0">
+      There are no products available yet!
+    </div>
+    <div class="no-products-msg" *ngIf="((filteredProducts$ | async)?.length === 0) && (products.length > 0)">
+      There are no products matching your search :/
     </div>
   </div>
 </div>

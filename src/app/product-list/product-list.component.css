@@ -37,10 +37,14 @@ a{
   .product{
     width: 100%;
   }
+  .product:last-child:nth-child(3n+2) {
+    margin-left: 0px;
+  }
 }
 
 .product:last-child:nth-child(3n+2) {
   margin-right: auto;
+  margin-left: 30px;
 }
 
 .product-list-container{
@@ -115,4 +119,44 @@ mark{
   background-color: red;
   color: white;
   padding: 20px;
+}
+
+.search{
+  display: flex;
+  justify-content: space-between;
+  margin: 50px 0;
+}
+
+.searchTerm {
+  width: 200px;
+  border: 3px solid #3c1b00;
+  padding: 5px;
+  height: 30px;
+  border-radius: 5px;
+  outline: none;
+  color: #9DBFAF;
+}
+
+.searchTerm:focus{
+  color: #3c1b00;
+}
+
+.no-products-msg{
+  background-color: #3c1b00;
+  color: #f39c12;
+  padding: 20px;
+  border-radius: 8px;
+  display: inline-block;
+}
+
+@media (max-width: 470px){
+  .featured-info{
+    display: none;
+  }
+  .featured-product{
+    padding: 10px;
+  }
+  .carousel-caption{
+    padding-bottom: 0;
+  }
 }

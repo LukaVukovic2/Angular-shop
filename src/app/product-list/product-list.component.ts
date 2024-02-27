@@ -17,6 +17,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   productsSub: Subscription;
   adminSub: Subscription;
   isAdmin = false;
+  placeholder = "";
   private filteredProductsSubject = new BehaviorSubject<Product[]>([]);
   filteredProducts$: Observable<Product[]> = this.filteredProductsSubject.asObservable();
 
@@ -60,4 +61,5 @@ export class ProductListComponent implements OnInit, OnDestroy {
     );
     this.filteredProductsSubject.next(filteredProducts.slice());
   }
+
 }

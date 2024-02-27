@@ -9,27 +9,27 @@
   <div class="collapse navbar-collapse" id="nav">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item nav-products" *ngIf="!isAdmin">
-        <a class="nav-link" routerLink="/products">Products</a>
+        <a class="nav-link" routerLink="/products" (click)="toggleNavbar()">Products</a>
       </li>
       <li class="nav-item" *ngIf="!isAdmin">
-        <a class="nav-link" [routerLink]="(isAuthenticated) ? '/shopping-cart' : '/auth'" [title]="isAuthenticated ? '' : 'You need to be logged in to see cart!'">
+        <a class="nav-link" (click)="toggleNavbar()" [routerLink]="(isAuthenticated) ? '/shopping-cart' : '/auth'" [title]="isAuthenticated ? '' : 'You need to be logged in to see cart!'">
           Cart 
           <i class="fa">&#xf07a;</i>
           <span class='badge' id='cartQuantity'>{{itemCount}}</span>
         </a>
       </li>
       <li class="nav-item" *ngIf="!isAuthenticated">
-        <a class="nav-link" routerLink="/auth">
+        <a class="nav-link" routerLink="/auth" (click)="toggleNavbar()">
           Authenticate
         </a>
       </li>
       <li class="nav-item" *ngIf="isAdmin">
-        <a class="nav-link" routerLink="/admin-dashboard">
+        <a class="nav-link" routerLink="/admin-dashboard" (click)="toggleNavbar()">
           Admin dashboard
         </a>
       </li>
       <li class="nav-item" *ngIf="isAuthenticated">
-        <a class="nav-link" (click)="onLogout()" style="cursor: pointer;">
+        <a class="nav-link" (click)="onLogout(); toggleNavbar();" style="cursor: pointer;">
           Logout</a>
       </li>
     </ul>

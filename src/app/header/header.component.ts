@@ -56,4 +56,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   onLogout(){
     this.authService.logoutUser();
   }
+  
+  toggleNavbar() {
+    const navbarCollapse = document.getElementById('nav');
+    if (navbarCollapse.classList.contains('show')) {
+      navbarCollapse.classList.remove('show');
+    }
+  }
 }

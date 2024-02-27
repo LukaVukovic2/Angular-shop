@@ -59,6 +59,10 @@ img{
   animation-duration: 0.6s;
 }
 
+.product-container{
+  margin: 50px 0;
+}
+
 @keyframes zoom {
   from {transform:scale(0)}
   to {transform:scale(1)}
@@ -89,10 +93,6 @@ img{
   display: none;
 }
 
-.product-container{
-  margin-bottom: 50px;
-}
-
 .div{
   width: 50%;
 }
@@ -114,8 +114,10 @@ img{
 @media (max-width: 600px){
   .div{
     width: 100%;
+    border-radius: 0 !important;
   }
 
   .product-container{
+    margin: 0;
   }
 }

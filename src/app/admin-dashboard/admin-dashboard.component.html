@@ -1,4 +1,5 @@
 <div class="container rounded">
+  <h2>Product list</h2>
   <ul class="product-list border" *ngIf="products.length > 0">
     <li class="list-group-item product-list-item d-flex justify-content-between" 
         *ngFor="let product of products"
@@ -61,10 +62,10 @@
         <textarea name="description" id="" rows="10" placeholder="Description" [ngModel]="selectedProduct?.description" (ngModelChange)="selectedProduct.description = $event"></textarea>
       </div>
     </div>
-    <div class="mt-2">
-      <button class="btn btn-success" type="submit" [disabled]="!f.valid">Add</button> |
-      <button class="btn btn-danger" (click)="clearInputs()" type="button">Clear Inputs</button> |
-      <button class="btn btn-info" (click)="updateProduct(selectedProduct)" [disabled]="!f.valid || (products.length === 0)" type="button">Update Product</button>
+    <div>
+      <button class="btn btn-success action-btn" type="submit" [disabled]="!f.valid">Add</button>
+      <button class="btn btn-danger action-btn" (click)="clearInputs()" type="button">Clear Inputs</button>
+      <button class="btn btn-info action-btn" (click)="updateProduct(selectedProduct)" [disabled]="!f.valid || (products.length === 0)" type="button">Update Product</button>
     </div>
   </form>
 </div>

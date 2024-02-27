@@ -1,3 +1,19 @@
+::-webkit-scrollbar {
+  width: 13px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(112, 112, 147);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #696868;
+}
+
 .container{
   padding: 20px;
   background-color: white;
@@ -62,5 +78,17 @@ textarea{
   }
   #product-info-input input{
     margin: 5px 0;
+  }
+}
+
+.action-btn{
+  margin-right: 10px;
+  margin-top: 10px;
+}
+
+@media (max-width: 576px){
+  .container{
+    border-radius: 0 !important;
+    margin: 0;
   }
 }

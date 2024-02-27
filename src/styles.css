@@ -15,3 +15,14 @@ body{
   font-family: "Adelle", sans-serif;
   background: url('https://images.unsplash.com/photo-1489450278009-822e9be04dff?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
 }
+
+.body{
+  padding: 0 20px;
+}
+
+.subtitle{
+  letter-spacing: normal;
+  line-height: 1.5;
+  font-weight: 400;
+  font-size: 1.25rem;
+}

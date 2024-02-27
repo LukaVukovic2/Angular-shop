@@ -1,4 +1,4 @@
-<div class="product-container" *ngIf="product" class="d-flex justify-content-center mt-5 mb-5 ml-2 mr-2">
+<div *ngIf="product" class="product-container d-flex justify-content-center">
   <div class="pull-left list-group-item text-center div">
     <img id="img" src="{{product.imagePath}}" alt="{{product.name}}" #img (click)="onImgClick()">
     <h2 class="list-group-item-heading">{{product.name}}</h2>
